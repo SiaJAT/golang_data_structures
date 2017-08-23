@@ -22,7 +22,7 @@ type List interface {
 	removeTail() *Node
 }
 
-
+// add a node to the back of the list
 func (list *LinkedList) add(val int) {
 	if list.head == nil {
 		n := Node{val, nil}
