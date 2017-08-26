@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"errors"
 )
 
@@ -29,17 +28,16 @@ func (stack *Stack) push(val int) {
 	}
 }
 
-func (stack *Stack) pop() *Node {
+func (stack *Stack) pop() (n *Node, err error) {
 	if stack.top == nil {
 		empty_stack_error := errors.New("Pop from empty stack!")
-		fmt.Println(empty_stack_error)
+		return nil, empty_stack_error
 	} 
 	return_node := stack.top
 	stack.top = stack.top.next
-	return return_node
+	return return_node, nil
 }
 
 
 func main() {
-
 }
