@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestPush(t *testing.T) {
+func Test_Push(t *testing.T) {
 	stack := Stack{}
 	stack.push(1)
 	if stack.top.value != 1 {
@@ -12,7 +12,7 @@ func TestPush(t *testing.T) {
 	}
 }
 
-func TestPop(t *testing.T) {
+func Test_Pop(t *testing.T) {
 	stack := Stack{}
 	stack.push(1)
 	stack.push(2)
@@ -22,7 +22,7 @@ func TestPop(t *testing.T) {
 	}
 }
 
-func TestPopEmpty(t *testing.T) {
+func Test_PopEmpty(t *testing.T) {
 	stack := Stack{}
 	_, err := stack.pop()
 	if err == nil {
@@ -30,7 +30,7 @@ func TestPopEmpty(t *testing.T) {
 	}
 }
 
-func TestPushThenPop(t *testing.T) {
+func Test_PushThenPop(t *testing.T) {
 	stack := Stack{}
 	stack.push(1)
 	stack.pop()
