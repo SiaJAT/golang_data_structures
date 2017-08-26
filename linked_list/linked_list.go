@@ -39,14 +39,6 @@ func (list *LinkedList) add(val int) {
 	}
 }
 
-func (list *LinkedList) getHead() *Node {
-	return list.head
-}
-
-func (list *LinkedList) getTail() *Node {
-	return list.tail
-}
-
 func (list *LinkedList) removeHead() *Node {
 	old_head := list.head
 	if list.head != nil && list.head == list.tail{
