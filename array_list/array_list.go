@@ -60,7 +60,7 @@ func (list *ArrayList) removeLast() (err error) {
 }
 
 func (list *ArrayList) getIterableArray() []int {
-	iterable_array := make(int[] list.end)
+	iterable_array := make([]int, list.end)
 	for i := 0; i < list.end; i++ {
 		iterable_array[i] = list.container[i]
 	}
@@ -69,8 +69,13 @@ func (list *ArrayList) getIterableArray() []int {
 
 func (list *ArrayList) resize() {
 	old_arr := list.getIterableArray()
-	list.
-}
+	list.size *= 2
+	list.container = make([]int, list.size)
+	for i := 0; i < list.end; i++ {
+		list.container[i] = old_arr[i]
+	}
+}	
+
 
 
 func main() {
