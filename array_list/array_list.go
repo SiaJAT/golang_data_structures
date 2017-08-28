@@ -36,18 +36,31 @@ func (list *ArrayList) add(value int) (err error) {
 	return nil
 }
 
-func (list *ArrayList) remove(index int) {
-	
+func (list *ArrayList) remove(index int) (err error) {
+	if list.end > 0 {
+		if index == list.end {
+			list.removeLast()
+		} else {
+			for i := index; i < list.end - 1; i++ {
+				list.container[i] = list.container[i+1]
+			}
+			list.end -= 1
+		}
+		return nil
+	}
+	return errors.New("Remove from empty list")
 }
 
-func (list *ArrayList) removeLast() {
-	if end > 0 {
-		end -= 1
+func (list *ArrayList) removeLast() (err error) {
+	if list.end > 0 {
+		list.end -= 1
+		return nil
 	}
+	return errors.New("Remove from empty list")
 }
 
 func (list *ArrayList) getIterableArray() []int {
-	return list.container[0:end]
+	return list.container[0:list.end]
 }
 
 
