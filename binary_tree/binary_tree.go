@@ -300,7 +300,6 @@ func main() {
 	//     1              2
 	//  3     4       5       6
 	// 7 8   9 10   11 12   13 14
-	//15
 	fmt.Println("testing")
 	tree := pureIntArr2tree(arr)
 	fmt.Printf("%v\n", tree.root.value)
@@ -366,7 +365,7 @@ func main() {
 		back_to_arr, _ := tree2ImpureArr(impure_tree)
 		fmt.Printf("%#v\n", back_to_arr)
 	} else {
-		fmt.Println("FUCK")
+		fmt.Println("Err")
 	}
 
 	b := math.Mod(4,2)
