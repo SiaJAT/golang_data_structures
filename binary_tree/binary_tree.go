@@ -16,6 +16,7 @@ type BinaryTree struct {
 }
 
 type TreeOps interface {
+	contains(val int) bool
 	depth() int
 	inOrderTraversal() []*Node
 	preOrderTraversal() []*Node
@@ -70,6 +71,24 @@ func _powVal(base int, pow int) int {
 		accum *= base
 	}
 	return accum
+}
+
+func (tree *BinaryTree) contains(val int) bool {
+	if tree == nil {
+		return false
+	}
+	return _contains(tree.root, val)
+}
+
+func _contains(node *Node, val int) bool {
+	if node == nil {
+		return false
+	}
+	if node.value == val {
+		return true
+	} else {
+		return _contains(node.left, val) || _contains(node.right, val)
+	}
 }
 
 func (tree *BinaryTree) depth() int {
@@ -187,11 +206,12 @@ func _postOrderTraversal(node *Node, trav *[]int) {
 }
 
 func main() {
-	arr := genIntArray(16)
+	arr := genIntArray(15)
 	//            0  
 	//     1              2
 	//  3     4       5       6
 	// 7 8   9 10   11 12   13 14
+	//15
 	fmt.Println("testing")
 	tree := str2tree(arr)
 	fmt.Printf("%v\n", tree.root.value)
@@ -226,8 +246,11 @@ func main() {
 		fmt.Printf("%v\n", val)
 	}
 
-
-
+	fmt.Println("contains test")
+	does_contain_0 := tree.contains(0)
+	does_contain_11 := tree.contains(21)
+	fmt.Printf("%v\n", does_contain_0)
+	fmt.Printf("%v\n", does_contain_11)
 
 }
 
