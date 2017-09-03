@@ -64,6 +64,14 @@ func _byte2int(b byte) int {
 	return val
 }
 
+func _powVal(base int, pow int) int {
+	accum := 1
+	for i := 0; i < pow; i++ {
+		accum *= base
+	}
+	return accum
+}
+
 func (tree *BinaryTree) depth() int {
 	if tree.root == nil {
 		return 0
@@ -90,37 +98,96 @@ func _depth(node *Node) int {
 	}
 }
 
-func (tree *BinaryTree) inOrderTraversal() []*Node {
+func (tree *BinaryTree) inOrderTraversal() []int {
+	if tree == nil {
+		return nil
+	}
+	// max # nodes in binary tree of "d" depth = 2^d - 1
+	arr := make([]int, 0, _powVal(2,tree.depth())-1)
 	
+	_inOrderTraversal(tree.root, &arr)
+	return arr
 }
 
-func _inOrderTraversal(node *Node, trav []*Node) {
+func _inOrderTraversal(node *Node, trav *[]int) {
+	if node == nil {
+		return
+	}
 
+	if node.left != nil {
+		_inOrderTraversal(node.left, trav)
+	}
+
+	if node != nil {
+		*trav = append(*trav, node.value)
+	}
+
+	if node.right != nil {
+		_inOrderTraversal(node.right, trav)
+	}
 }
 
 
-func (tree *BinaryTree) preOrderTraversal() []*Node  {
-	return nil
-}
-
-func _preOrderTraversal(node *Node, trav []*Node) {
+func (tree *BinaryTree) preOrderTraversal() []int  {
+	if tree == nil {
+		return nil
+	}
+	// max # nodes in binary tree of "d" depth = 2^d - 1
+	arr := make([]int, 0, _powVal(2,tree.depth())-1)
 	
+	_preOrderTraversal(tree.root, &arr)
+	return arr
 }
 
-func (tree *BinaryTree) postOrderTraversal() []*Node {
-	return nil
+func _preOrderTraversal(node *Node, trav *[]int) {
+	if node == nil {
+		return
+	}
+
+	if node != nil {
+		*trav = append(*trav, node.value)
+	}
+
+	if node.left != nil {
+		_preOrderTraversal(node.left, trav)
+	}
+
+	if node.right != nil {
+		_preOrderTraversal(node.right, trav)
+	}
 }
 
-func _postOrderTraversal(node *Node, trav []*Node) {
+func (tree *BinaryTree) postOrderTraversal() []int {
+	if tree == nil {
+		return nil
+	}
+	// max # nodes in binary tree of "d" depth = 2^d - 1
+	arr := make([]int, 0, _powVal(2,tree.depth())-1)
 	
+	_postOrderTraversal(tree.root, &arr)
+	return arr
+}
+
+func _postOrderTraversal(node *Node, trav *[]int) {
+	if node == nil {
+		return
+	}
+
+	if node.left != nil {
+		_postOrderTraversal(node.left, trav)
+	}
+
+	if node.right != nil {
+		_postOrderTraversal(node.right, trav)
+	}
+
+	if node != nil {
+		*trav = append(*trav, node.value)
+	}
 }
 
 func main() {
 	arr := genIntArray(16)
-	for i := 0; i < len(arr); i++ {
-		fmt.Printf("%v\n", arr[i])
-	}
-
 	//            0  
 	//     1              2
 	//  3     4       5       6
@@ -137,6 +204,30 @@ func main() {
 
 	tree_depth := tree.depth()
 	fmt.Printf("%v\n", tree_depth)
+
+	test_pow := _powVal(2, 5)
+	fmt.Printf("%v\n", test_pow)	
+
+	fmt.Println("in trav...")
+	in_trav := tree.inOrderTraversal()
+	for _, val := range in_trav {
+		fmt.Printf("%v\n", val)
+	}
+
+	fmt.Println("pre trav...")
+	pre_trav := tree.preOrderTraversal()
+	for _, val := range pre_trav {
+		fmt.Printf("%v\n", val)
+	}
+
+	fmt.Println("post trav...")
+	post_trav := tree.postOrderTraversal()
+	for _, val := range post_trav {
+		fmt.Printf("%v\n", val)
+	}
+
+
+
 
 }
 
