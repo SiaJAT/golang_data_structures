@@ -1,7 +1,7 @@
 package main
 
 import (
-
+	"strconv"
 )
 
 type Node struct {
@@ -19,6 +19,34 @@ type TreeOps interface {
 	inOrderTraversal() []*Node
 	preOrderTraversal() []*Node
 	postOrderTraversal() []*Node
+}
+
+func str2tree (str string) *BinaryTree {
+	if str == "" {
+		return nil
+	}
+
+	root_val := _byte2int(str[0])
+
+	root := Node{root_val, nil, nil}
+	tree := BinaryTree{&root}
+
+	node_arr := make([]*Node, len(str))
+
+	// a b c d e f g
+	// 0 1 2 3 4 5 6
+	// 
+	//     0
+	//   1   2
+	//  3 4 5 6
+
+	return nil 
+
+}
+
+func _byte2int(b byte) int {
+	val, _ := strconv.Atoi(string(b))
+	return val
 }
 
 func (tree *BinaryTree) depth() int {
@@ -61,6 +89,6 @@ func (tree *BinaryTree) postOrderTraversal() []*Node {
 
 func main() {
 	tree := BinaryTree{}
-	
+
 }
 
