@@ -2,6 +2,7 @@ package main
 
 import (
 	"strconv"
+	"fmt"
 )
 
 type Node struct {
@@ -21,27 +22,41 @@ type TreeOps interface {
 	postOrderTraversal() []*Node
 }
 
-func str2tree (str string) *BinaryTree {
-	if str == "" {
+func genIntArray(length int) []int {
+	arr := make([]int, length)
+	for i := 0; i < length; i++ {
+		arr[i] = i
+	}
+	return arr
+}
+
+func str2tree(arr []int) *BinaryTree {
+	if arr == nil || len(arr) == 0 {
 		return nil
 	}
 
-	root_val := _byte2int(str[0])
+	node_arr := make([]*Node, len(arr))
 
-	root := Node{root_val, nil, nil}
-	tree := BinaryTree{&root}
+	// create unlinked nodes with value equal to their index in arr
+	for index, _ := range node_arr {
+		node_arr[index] = &Node{arr[index], nil, nil}
+	}
 
-	node_arr := make([]*Node, len(str))
+	// 2*index + 1 == left
+	// 2*index + 2 == right
+	for index,_ := range node_arr {
+		if 2*index + 1 < len(arr) {
+			node_arr[index].left = node_arr[2*index+1]
+		}
+		
+		if 2*index + 2 < len(arr) {
+			node_arr[index].right = node_arr[2*index+2]
+		}		
+	}
 
-	// a b c d e f g
-	// 0 1 2 3 4 5 6
-	// 
-	//     0
-	//   1   2
-	//  3 4 5 6
+	tree := BinaryTree{node_arr[0]}
 
-	return nil 
-
+	return &tree
 }
 
 func _byte2int(b byte) int {
@@ -76,19 +91,52 @@ func _depth(node *Node) int {
 }
 
 func (tree *BinaryTree) inOrderTraversal() []*Node {
-	return nil
+	
 }
+
+func _inOrderTraversal(node *Node, trav []*Node) {
+
+}
+
 
 func (tree *BinaryTree) preOrderTraversal() []*Node  {
 	return nil
+}
+
+func _preOrderTraversal(node *Node, trav []*Node) {
+	
 }
 
 func (tree *BinaryTree) postOrderTraversal() []*Node {
 	return nil
 }
 
+func _postOrderTraversal(node *Node, trav []*Node) {
+	
+}
+
 func main() {
-	tree := BinaryTree{}
+	arr := genIntArray(16)
+	for i := 0; i < len(arr); i++ {
+		fmt.Printf("%v\n", arr[i])
+	}
+
+	//            0  
+	//     1              2
+	//  3     4       5       6
+	// 7 8   9 10   11 12   13 14
+	fmt.Println("testing")
+	tree := str2tree(arr)
+	fmt.Printf("%v\n", tree.root.value)
+	fmt.Printf("%v\n", tree.root.left.value)
+	fmt.Printf("%v\n", tree.root.left.right.value)
+	fmt.Printf("%v\n", tree.root.left.right.right.value)
+
+	DNE := tree.root.left.right.right.left == nil
+	fmt.Printf("%v\n", DNE)
+
+	tree_depth := tree.depth()
+	fmt.Printf("%v\n", tree_depth)
 
 }
 
